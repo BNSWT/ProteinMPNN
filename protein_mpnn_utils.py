@@ -217,12 +217,16 @@ def tied_featurize(batch, device, chain_dict, fixed_position_dict=None, omit_AA_
     for i, b in enumerate(batch):
         if chain_dict != None:
             masked_chains, visible_chains = chain_dict[b['name']] #masked_chains a list of chain letters to predict [A, D, F]
+            print("chain dict is not None")
         else:
+            print("chain dict is None")
             masked_chains = [item[-1:] for item in list(b) if item[:10]=='seq_chain_']
             visible_chains = []
         masked_chains.sort() #sort masked_chains 
         visible_chains.sort() #sort visible_chains 
         all_chains = masked_chains + visible_chains
+        print(f"batch content: {b}")
+        print(f"Len all_chains: {len(all_chains)}")
     for i, b in enumerate(batch):
         mask_dict = {}
         a = 0
